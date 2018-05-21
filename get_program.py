@@ -65,6 +65,8 @@ channels = {
   "COMEDY" : 10149,
   "WDSCDT" : 43718,
   "TCM" : 12852,
+  "HBO" : 10240,
+  "FX" : 14321,
 }
 
 
