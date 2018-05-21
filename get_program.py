@@ -51,6 +51,9 @@ import json
   results in response:
   var validRequest = true; var server = "http://api.zap2it.com"; var requestParams = "ap=wo&md=getWhatsOn&v=2&aid=WBAL&zip=21211&stnlt=21231&random=1349602906090"; var action; action = "/tvlistings/ZCShowtimeAction.do?"; if(requestParams!="" && validRequest) { document.write(""); document.write(""); } else { function buildXHTML() {} }
 
+# this url also works (uses 'aid' whatever that is)
+http://api.zap2it.com/tvlistings/webservices/whatson?stnlt=70248&aid=antennatv
+
 
 """
 
@@ -61,6 +64,7 @@ channels = {
   "CNN" : 10142,
   "COMEDY" : 10149,
   "WDSCDT" : 43718,
+  "TCM" : 12852,
 }
 
 
