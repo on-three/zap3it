@@ -51,6 +51,9 @@ import json
 channels = {
   "TBS" : 43718,
   "AETV" : 10035, # A&E
+  "TOON" : 12131,
+  "CNN" : 10142,
+  "COMEDY" : 10149,
   "WDSCDT" : 43718,
 }
 
