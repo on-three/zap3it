@@ -46,6 +46,12 @@ import json
   "isHD": false,
   "availableInHdtv": false,
 
+  Research:
+  url: http://api.zap2it.com/tvlistings/zcConnector.jsp?ap=wo&md=getWhatsOn&v=2&aid=WBAL&zip=21211&stnlt=21231&random=1349602906090
+  results in response:
+  var validRequest = true; var server = "http://api.zap2it.com"; var requestParams = "ap=wo&md=getWhatsOn&v=2&aid=WBAL&zip=21211&stnlt=21231&random=1349602906090"; var action; action = "/tvlistings/ZCShowtimeAction.do?"; if(requestParams!="" && validRequest) { document.write(""); document.write(""); } else { function buildXHTML() {} }
+
+
 """
 
 channels = {
@@ -58,14 +64,17 @@ channels = {
 }
 
 
-def get_channel_info(channel):
+def get_channel_info(channel, zip_code):
   """
   Just simply print current channel info for given channel.
   """
   global channels
 
   id = channels[channel]
-  url = 'http://api.zap2it.com/tvlistings/webservices/whatson?stnlt={id}'.format(id=id)
+  url = 'http://api.zap2it.com/tvlistings/webservices/whatson?stnlt={id}&zip={zip}'.format(id=id, zip=zip_code)
+
+  #debug
+  print url
 
   # fetch the json info for this url and extract what we want.
   json_url = urlopen(url)
@@ -92,16 +101,17 @@ def main():
   parser = argparse.ArgumentParser(
     description='Fetch current program info')
   parser.add_argument('channel', help='Station name (e.g. TBS) case insensitive.', type=str)
+  parser.add_argument('-z','--zip', help='Zip code of query', type=int, default=10012)
   args = parser.parse_args()
   
   # force all uppercase for channel names
   channel = args.channel.upper()
-
+  zip = args.zip
   if not channel in channels:
     print("Channel {c} not supported.".format(c=channel))
     sys.exit(-1)
 
-  get_channel_info(channel)
+  get_channel_info(channel, zip)
 
   sys.exit(0)
 
