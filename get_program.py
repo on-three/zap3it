@@ -50,6 +50,7 @@ import json
 
 channels = {
   "TBS" : 43718,
+  "AETV" : 10035, # A&E
   "WDSCDT" : 43718,
 }
 
@@ -73,10 +74,13 @@ def get_channel_info(channel):
   time = data['results']['schedules'][0]['time']
   endtime = data['results']['schedules'][0]['endTime']
   duration = data['results']['schedules'][0]['duration']
+  title = data['results']['schedules'][0]['title']
+ 
   print date
   print time
   print endtime
   print duration
+  print title
 
 def main():
 
