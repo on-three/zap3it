@@ -54,6 +54,17 @@ import json
 # this url also works (uses 'aid' whatever that is)
 http://api.zap2it.com/tvlistings/webservices/whatson?stnlt=70248&aid=antennatv
 
+# these urls also have some possibly usable settings
+https://tvlistings.zap2it.com/?fromTimeInMillis=1526922000000&aid=zap2it
+http://api-origin.zap2it.com/tvlistings/ZCGrid.do?method=decideFwdForLineup&zipcode=85016&setMyPreference=false&lineupId=DITV:-
+http://api-origin.zap2it.com/tvlistings/ZBChooseProvider.do?method=getProviders
+http://api-origin.zap2it.com/tvlistings/zcgrid.do?setmypreference=false&zipcode=78746&method=decidefwdforlineup&lineupid=dish635%3A
+
+# Got this url when looking ahead at approx unix time (seconds from epoch) : 1526919453
+http://api.zap2it.com/tvlistings/ZCGrid.do?fromTimeInMillis=1513969200000
+
+# this works. Got schedule info from the future
+http://api.zap2it.com/tvlistings/webservices/whatson?fromTimeInMillis=1527005834848&stnlt=10149
 
 """
 
