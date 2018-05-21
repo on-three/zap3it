@@ -81,15 +81,15 @@ channels = {
 }
 
 # get a value from our json dictionary with some safety
-def get_value(data, key, default_value):
+def get_value(data, slot, key, default_value):
   try:
-    v = data['results']['schedules'][0][key]
+    v = data['results']['schedules'][slot][key]
     return v
   except:
     return default_value
 
 
-def get_channel_info(channel, zip_code):
+def get_channel_info(channel, zip_code, slot = 0):
   """
   Just simply print current channel info for given channel.
   """
@@ -112,14 +112,14 @@ def get_channel_info(channel, zip_code):
   # extract data we want
   # It seems sometimes elements can be missing so we probably want
   # to extract them more safely
-  date = data['results']['schedules'][0]['date']
-  time = data['results']['schedules'][0]['time']
-  endtime = data['results']['schedules'][0]['endTime']
-  duration = data['results']['schedules'][0]['duration']
-  title = data['results']['schedules'][0]['title']
+  date = data['results']['schedules'][slot]['date']
+  time = data['results']['schedules'][slot]['time']
+  endtime = data['results']['schedules'][slot]['endTime']
+  duration = data['results']['schedules'][slot]['duration']
+  title = data['results']['schedules'][slot]['title']
   # desc can be missing so rather than read it directly we do so with a fallback
   #desc = data['results']['schedules'][0]['description']
-  desc = get_value(data, 'description', 'No program description available.')
+  desc = get_value(data, slot, 'description', 'No program description available.')
 
   print "Date: " + date
   print "Start time: " + time
@@ -145,7 +145,12 @@ def main():
     print("Channel {c} not supported.".format(c=channel))
     sys.exit(-1)
 
-  get_channel_info(channel, zip)
+  # dump current program info
+  print("CURRENT PROGRAM:")
+  get_channel_info(channel, zip, 0)
+  # dump NEXT program info
+  print("NEXT PROGRAM:")
+  get_channel_info(channel, zip, 1)
 
   sys.exit(0)
 
