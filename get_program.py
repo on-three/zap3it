@@ -2,7 +2,7 @@
 # vim: set ts=2 expandtab:
 """
 Module: get_program.py
-Desc: Extract ARIB CCs from an MPEG transport stream and produce an .ass subtitle file off them.
+Desc: get simple program info from 'zap3it'
 Author: on-three
 Email: on.three.email@gmail.com
 DATE: Sunday May 20th 2018
