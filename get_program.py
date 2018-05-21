@@ -69,6 +69,14 @@ channels = {
   "FX" : 14321,
 }
 
+# get a value from our json dictionary with some safety
+def get_value(data, key, default_value):
+  try:
+    v = data['results']['schedules'][0][key]
+    return v
+  except:
+    return default_value
+
 
 def get_channel_info(channel, zip_code):
   """
@@ -87,18 +95,27 @@ def get_channel_info(channel, zip_code):
   data = json.loads(json_url.read())
 
   # debug
+  # uncomment the following line to see all data available
   #print data
+
+  # extract data we want
+  # It seems sometimes elements can be missing so we probably want
+  # to extract them more safely
   date = data['results']['schedules'][0]['date']
   time = data['results']['schedules'][0]['time']
   endtime = data['results']['schedules'][0]['endTime']
   duration = data['results']['schedules'][0]['duration']
   title = data['results']['schedules'][0]['title']
- 
-  print date
-  print time
-  print endtime
-  print duration
-  print title
+  # desc can be missing so rather than read it directly we do so with a fallback
+  #desc = data['results']['schedules'][0]['description']
+  desc = get_value(data, 'description', 'No program description available.')
+
+  print "Date: " + date
+  print "Start time: " + time
+  print "End time: " + endtime
+  print "Duration: " + str(duration) + " minutes."
+  print "Program Title: " + title
+  print "Description: " + desc
 
 def main():
 
