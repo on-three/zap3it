@@ -46,7 +46,11 @@ import json
   "isHD": false,
   "availableInHdtv": false,
 
-  # good info
+  # this is what we want, probably
+  https://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode=10001&isOverride=false&time=1527109200&pref=-&userId=-&aid=zap2it
+
+
+# good info
   https://www.scribd.com/doc/133056264/TV-Listings-Guide-and-TV-Schedule-Where-to-Watch-TV-Shows-Zap2i://www.scribd.com/doc/133056264/TV-Listings-Guide-and-TV-Schedule-Where-to-Watch-TV-Shows-Zap2it
 
   # was able to get the next json block by adding a "schd" param (no does not work)
