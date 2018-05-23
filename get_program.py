@@ -46,6 +46,12 @@ import json
   "isHD": false,
   "availableInHdtv": false,
 
+  # good info
+  https://www.scribd.com/doc/133056264/TV-Listings-Guide-and-TV-Schedule-Where-to-Watch-TV-Shows-Zap2i://www.scribd.com/doc/133056264/TV-Listings-Guide-and-TV-Schedule-Where-to-Watch-TV-Shows-Zap2it
+
+  # was able to get the next json block by adding a "schd" param (no does not work)
+  http://api.zap2it.com/tvlistings/webservices/whatson?stnlt=12131&zip=10012&schd=32503139599
+
   Research:
   url: http://api.zap2it.com/tvlistings/zcConnector.jsp?ap=wo&md=getWhatsOn&v=2&aid=WBAL&zip=21211&stnlt=21231&random=1349602906090
   results in response:
@@ -65,6 +71,10 @@ http://api.zap2it.com/tvlistings/ZCGrid.do?fromTimeInMillis=1513969200000
 
 # this works. Got schedule info from the future
 http://api.zap2it.com/tvlistings/webservices/whatson?fromTimeInMillis=1527005834848&stnlt=10149
+
+# this looks like a complete dump of their supported URL parameters
+http://api.zap2it.com/tvlistings/zcConnector.jsp?ap=cf&v=1
+var validRequest = true; var server = "http://api.zap2it.com"; var requestParams = "ap=cf&v=1"; var action; var qsParm = new Array(); var query = window.location.search.substring(1); //alert("in query =================== "+query); var parms = query.split("&"); for (var i=0; i 0) { var key = parms[i].substring(0,pos); var val = parms[i].substring(pos+1); qsParm[key] = val; //alert(key+" ======= "+ qsParm[key]); } } var aid = qsParm["aid"]; var version = qsParm["v"]; var zipcode = qsParm["zip"]; var lineupId = qsParm["lid"]; var stnlt = qsParm["stnlt"]; var nstnlt = qsParm["nstnlt"]; var rType = qsParm["rty"]; var fType = qsParm["fmt"]; //alert(" version from query ======= "+ version+" zip = "+zipcode+" aid = "+aid + " stn list = "+stnlt); if(version != undefined && version != null && version!="" && version!="null") { version = "&v="+version; } else { version = ""; } //alert("zcConnector version =================== " + version); //alert("zcConnector aid =================== "+aid); if(aid != undefined && aid != null && aid!="" && aid!="undefined" && aid!="null") { aid = "&aid="+aid; //alert("zcConnector aid =================== "+aid); } else { //alert("zcConnector else NO aid !!!!!!!!"); aid = ""; } if(zipcode!= undefined && zipcode!=null && zipcode!="" && zipcode!="undefined" && zipcode!="null") { zipcode = "&zip="+zipcode; //alert("zcConnector zip =================== " + zipcode ); } else { //alert("zcConnector NO ZIP !!!!!!!!!!!!!!! " ); zipcode =""; } if(lineupId!= undefined && lineupId!=null && lineupId!="" && lineupId!="undefined" && lineupId!="null") { lineupId = "&lid="+lineupId; //alert("zcConnector zip =================== " + lineupId ); } else { //alert("zcConnector NO LineupIDs !!!!!!!!!!!!!!! " ); lineupId = ""; //alert("zcConnector else lineupId =================== " + lineupId ); } if(stnlt != undefined && stnlt != null && stnlt!="" && stnlt!="undefined" && stnlt!="null") { stnlt = "&stnlt="+stnlt; } else { stnlt = ""; } if(nstnlt != undefined && nstnlt != null && nstnlt!="" && nstnlt!="undefined" && nstnlt!="null") { nstnlt = "&nstnlt="+nstnlt; } else { nstnlt = ""; } if(rType != undefined && rType != null && rType!="" && rType!="undefined" && rType!="null") { rType = "&rty="+rType; } else { rType = ""; } if(fType != undefined && fType != null && fType!="" && fType!="undefined" && fType!="null") { fType = "&fmt="+fType; } else { fType = ""; } requestParams = version + aid + zipcode + lineupId + stnlt + nstnlt + rType + fType; if(zipcode=="" || stnlt=="") { validRequest = false; } action = "/tvlistings/ZCChannelFinder.do?"; if(requestParams!="" && validRequest) { document.write(""); document.write(""); } else { function buildXHTML() {} }
 
 """
 
