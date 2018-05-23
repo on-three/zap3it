@@ -13,6 +13,7 @@ import errno
 import sys
 import argparse
 import traceback
+import time
 
 from urllib import urlopen
 import json
@@ -110,8 +111,8 @@ def get_channel_info(channel, zip_code, slot = 0):
   global channels
 
   id = channels[channel]
-  url = 'http://api.zap2it.com/tvlistings/webservices/whatson?stnlt={id}&zip={zip}'.format(id=id, zip=zip_code)
-
+  #url = 'http://api.zap2it.com/tvlistings/webservices/whatson?stnlt={id}&zip={zip}'.format(id=id, zip=zip_code)
+  url = 'http://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode={zip}&isOverride=false&time={t}&pref=-&userId=-&aid=zap2it'.format(zip=zip_code, t=int(time.time()))
   #debug
   print url
 
@@ -121,26 +122,26 @@ def get_channel_info(channel, zip_code, slot = 0):
 
   # debug
   # uncomment the following line to see all data available
-  #print data
+  print data
 
   # extract data we want
   # It seems sometimes elements can be missing so we probably want
   # to extract them more safely
-  date = data['results']['schedules'][slot]['date']
-  time = data['results']['schedules'][slot]['time']
-  endtime = data['results']['schedules'][slot]['endTime']
-  duration = data['results']['schedules'][slot]['duration']
-  title = data['results']['schedules'][slot]['title']
+  #date = data['results']['schedules'][slot]['date']
+  #time = data['results']['schedules'][slot]['time']
+  #endtime = data['results']['schedules'][slot]['endTime']
+  #duration = data['results']['schedules'][slot]['duration']
+  #title = data['results']['schedules'][slot]['title']
   # desc can be missing so rather than read it directly we do so with a fallback
   #desc = data['results']['schedules'][0]['description']
-  desc = get_value(data, slot, 'description', 'No program description available.')
+  #desc = get_value(data, slot, 'description', 'No program description available.')
 
-  print "Date: " + date
-  print "Start time: " + time
-  print "End time: " + endtime
-  print "Duration: " + str(duration) + " minutes."
-  print "Program Title: " + title
-  print "Description: " + desc
+  #print "Date: " + date
+  #print "Start time: " + time
+  #print "End time: " + endtime
+  #print "Duration: " + str(duration) + " minutes."
+  #print "Program Title: " + title
+  #print "Description: " + desc
 
 def main():
 
