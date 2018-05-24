@@ -86,16 +86,19 @@ def get_channel_info(channel, zip_code, slot = 0):
       # DEBUG
       #print str(c)
       events = c['events']
+      if len(events) == 0:
+        return False
       current_program = events[0]
-      next_program = events[1]
       print "***** current program *****"
       dump_program(current_program)
+      if len(events) < 2:
+        return False
+      next_program = events[1]
       print "***** next program ********"
       dump_program(next_program)
       # We can bail as we've found our channel of interest
       return True
 
-  print("ERROR: no channel by name: " + channel + " found in data.")
   return False
 
 def main():
@@ -117,7 +120,9 @@ def main():
   #  print("Channel {c} not supported.".format(c=channel))
   #  sys.exit(-1)
 
-  get_channel_info(channel, zip, 0)
+  if not get_channel_info(channel, zip, 0):
+    print("ERROR:  no channel data found for channel : " + channel)
+    sys.exit(-1)
 
   sys.exit(0)
 
