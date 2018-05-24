@@ -96,13 +96,32 @@ channels = {
 }
 
 # get a value from our json dictionary with some safety
-def get_value(data, slot, key, default_value):
+def get_value(obj, key, default):
   try:
-    v = data['results']['schedules'][slot][key]
+    v = obj[key]
     return v
   except:
-    return default_value
+    return default
 
+
+def dump_program(e):
+  # debug
+  #print str(e)
+  print "******************"
+  start_time = e['startTime']
+  end_time = e['endTime']
+  duration = e['duration']
+  program = e['program']
+  title = program['title']
+  episode_title = get_value(program, 'episodeTitle', "No episode title")
+  desc = get_value(program, 'shortDesc', "No Description available.")
+  season = get_value(program, 'season', "No Season available.")
+  episode = get_value(program, 'episode', "No episode number available")
+  print title + " : season: " + season + " episode: " + episode
+  print "Description: " + desc
+  print "Start Time: " + start_time
+  print "End time: " + end_time
+  print "Duration: " + duration
 
 def get_channel_info(channel, zip_code, slot = 0):
   """
@@ -111,9 +130,7 @@ def get_channel_info(channel, zip_code, slot = 0):
   global channels
 
   id = channels[channel]
-  #url = 'http://api.zap2it.com/tvlistings/webservices/whatson?stnlt={id}&zip={zip}'.format(id=id, zip=zip_code)
   url = 'http://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode={zip}&isOverride=false&time={t}&pref=-&userId=-&aid=zap2it'.format(zip=zip_code, t=int(time.time()))
-  #debug
   print url
 
   # fetch the json info for this url and extract what we want.
@@ -125,6 +142,15 @@ def get_channel_info(channel, zip_code, slot = 0):
     #print "callsign: " + c['callSign']
     if c['callSign'] == channel:
       print("Found data entry for channel " + channel)
+      #print str(c)
+      events = c['events']
+      #for e in events:
+      current_program = events[0]
+      next_program = events[1]
+      print "***** current program *****"
+      dump_program(current_program)
+      print "***** next program ********"
+      dump_program(next_program)
       break
 
   # debug
