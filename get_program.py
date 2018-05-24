@@ -49,9 +49,8 @@ def get_value(obj, key, default):
 
 
 def dump_program(e):
-  # debug
+  # DEBUG
   #print str(e)
-  print "******************"
   start_time = e['startTime']
   end_time = e['endTime']
   duration = e['duration']
@@ -84,39 +83,20 @@ def get_channel_info(channel, zip_code, slot = 0):
     #print "callsign: " + c['callSign']
     if c['callSign'] == channel:
       print("Found data entry for channel " + channel)
+      # DEBUG
       #print str(c)
       events = c['events']
-      #for e in events:
       current_program = events[0]
       next_program = events[1]
       print "***** current program *****"
       dump_program(current_program)
       print "***** next program ********"
       dump_program(next_program)
-      break
+      # We can bail as we've found our channel of interest
+      return True
 
-  # debug
-  # uncomment the following line to see all data available
-  #print data
-
-  # extract data we want
-  # It seems sometimes elements can be missing so we probably want
-  # to extract them more safely
-  #date = data['results']['schedules'][slot]['date']
-  #time = data['results']['schedules'][slot]['time']
-  #endtime = data['results']['schedules'][slot]['endTime']
-  #duration = data['results']['schedules'][slot]['duration']
-  #title = data['results']['schedules'][slot]['title']
-  # desc can be missing so rather than read it directly we do so with a fallback
-  #desc = data['results']['schedules'][0]['description']
-  #desc = get_value(data, slot, 'description', 'No program description available.')
-
-  #print "Date: " + date
-  #print "Start time: " + time
-  #print "End time: " + endtime
-  #print "Duration: " + str(duration) + " minutes."
-  #print "Program Title: " + title
-  #print "Description: " + desc
+  print("ERROR: no channel by name: " + channel + " found in data.")
+  return False
 
 def main():
 
@@ -137,12 +117,7 @@ def main():
   #  print("Channel {c} not supported.".format(c=channel))
   #  sys.exit(-1)
 
-  # dump current program info
-  #print("CURRENT PROGRAM:")
   get_channel_info(channel, zip, 0)
-  # dump NEXT program info
-  #print("NEXT PROGRAM:")
-  #get_channel_info(channel, zip, 1)
 
   sys.exit(0)
 
