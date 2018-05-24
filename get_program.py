@@ -120,9 +120,16 @@ def get_channel_info(channel, zip_code, slot = 0):
   json_url = urlopen(url)
   data = json.loads(json_url.read())
 
+  for c in data['channels']:
+    # DEBUG: dump all channel names
+    #print "callsign: " + c['callSign']
+    if c['callSign'] == channel:
+      print("Found data entry for channel " + channel)
+      break
+
   # debug
   # uncomment the following line to see all data available
-  print data
+  #print data
 
   # extract data we want
   # It seems sometimes elements can be missing so we probably want
@@ -156,16 +163,18 @@ def main():
   # force all uppercase for channel names
   channel = args.channel.upper()
   zip = args.zip
-  if not channel in channels:
-    print("Channel {c} not supported.".format(c=channel))
-    sys.exit(-1)
+  
+  # should now work for all channels by string name
+  #if not channel in channels:
+  #  print("Channel {c} not supported.".format(c=channel))
+  #  sys.exit(-1)
 
   # dump current program info
-  print("CURRENT PROGRAM:")
+  #print("CURRENT PROGRAM:")
   get_channel_info(channel, zip, 0)
   # dump NEXT program info
-  print("NEXT PROGRAM:")
-  get_channel_info(channel, zip, 1)
+  #print("NEXT PROGRAM:")
+  #get_channel_info(channel, zip, 1)
 
   sys.exit(0)
 
