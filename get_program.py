@@ -99,7 +99,7 @@ channels = {
 def get_value(obj, key, default):
   try:
     v = obj[key]
-    return v
+    return str(v)
   except:
     return default
 
@@ -121,7 +121,7 @@ def dump_program(e):
   print "Description: " + desc
   print "Start Time: " + start_time
   print "End time: " + end_time
-  print "Duration: " + duration
+  print "Duration: " + duration + " minutes"
 
 def get_channel_info(channel, zip_code, slot = 0):
   """
