@@ -23,9 +23,13 @@ import json
   # this is what we want, probably
   https://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode=10001&isOverride=false&time=1527109200&pref=-&userId=-&aid=zap2it
 
+# this url gives a json response for specific local provider (so you have local stations like fox etc."
+https://tvlistings.zap2it.com/api/grid?lineupId=USA-NV27420-DEFAULT&timespan=2&headendId=NV27420&country=USA&device=-&postalCode=89135&isOverride=true&time=1527550200&pref=-&userId=-&aid=gapzap
+
 """
 
-DEFAULT_ZIP = 10012
+DEFAULT_ZIP = 89135
+DEFAULT_PROVIDER = 'NV27420'
 
 # Some available channels (for unit testing)
 test_channels = [
@@ -176,12 +180,14 @@ def dump_program(e):
   print "End time: " + end_time
   print "Duration: " + duration + " minutes"
 
-def get_channel_info(channel, zip_code):
+def get_channel_info(channel, zip_code, provider):
   """
   Just simply print current channel info for given channel.
   """
 
-  url = 'http://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode={zip}&isOverride=false&time={t}&pref=-&userId=-&aid=zap2it'.format(zip=zip_code, t=int(time.time()))
+  url = 'https://tvlistings.zap2it.com/api/grid?lineupId=USA-{p}-DEFAULT&timespan=2&headendId={p}&country=USA&device=-&postalCode={z}&isOverride=true&time={t}&pref=-&userId=-&aid=gapzap'.format(p=provider, z=zip_code, t=int(time.time()))
+
+  #url = 'http://tvlistings.zap2it.com/api/grid?lineupId=DFLTE&timespan=2&headendId=DFLTE&country=USA&device=-&postalCode={zip}&isOverride=false&time={t}&pref=-&userId=-&aid=zap2it'.format(zip=zip_code, t=int(time.time()))
   print url
 
   # fetch the json info for this url and extract what we want.
@@ -216,6 +222,7 @@ def get_channel_info(channel, zip_code):
 def main():
 
   global DEFAULT_ZIP
+  global DEFAULT_PROVIDER
 
   parser = argparse.ArgumentParser(
     description='Fetch current program info')
@@ -225,9 +232,10 @@ def main():
   
   # force all uppercase for channel names
   channel = args.channel.upper()
+  provider = DEFAULT_PROVIDER
   zip = args.zip
   
-  if not get_channel_info(channel, zip):
+  if not get_channel_info(channel, zip, provider):
     print("ERROR:  no channel data found for channel : " + channel)
     sys.exit(-1)
 
