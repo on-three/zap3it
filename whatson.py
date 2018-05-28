@@ -228,11 +228,12 @@ def main():
     description='Fetch current program info')
   parser.add_argument('channel', help='Station name (e.g. TBS) case insensitive.', type=str)
   parser.add_argument('-z','--zip', help='Zip code of query', type=int, default=DEFAULT_ZIP)
+  parser.add_argument('-p', '--provider', help='provider id', type=str, default=DEFAULT_PROVIDER)
   args = parser.parse_args()
   
   # force all uppercase for channel names
   channel = args.channel.upper()
-  provider = DEFAULT_PROVIDER
+  provider = args.provider.upper()
   zip = args.zip
   
   if not get_channel_info(channel, zip, provider):
