@@ -31,127 +31,6 @@ https://tvlistings.zap2it.com/api/grid?lineupId=USA-NV27420-DEFAULT&timespan=2&h
 DEFAULT_ZIP = 89135
 DEFAULT_PROVIDER = 'NV27420'
 
-# Some available channels (for unit testing)
-test_channels = [
-    "ABC",
-    "CBS",
-    "NBC",
-    "FOX",
-    "CW",
-    "PBS",
-    "MNT",
-    "TELE",
-    "UNIMAS",
-    "UNI",
-    "FREEFRM",
-    "AETV",
-    "AJAM",
-    "AMC",
-    "ANTENNA",
-    "APL",
-    "BBCA",
-    "BET",
-    "FYISD",
-    "BLOOM",
-    "BRAVO",
-    "CBSSN",
-    "CMTV",
-    "CNBC",
-    "CNN",
-    "COMEDY",
-    "COOK",
-    "CSPAN",
-    "CSPAN2",
-    "DLC",
-    "DISN",
-    "DSC",
-    "DXD",
-    "E",
-    "STZENC",
-    "ESPN",
-    "ESPN2",
-    "ESPNCL",
-    "ESPNEWS",
-    "ESPNU",
-    "FXM",
-    "FNC",
-    "FOOD",
-    "FXX",
-    "FX",
-    "GAC",
-    "GALA",
-    "GOLF",
-    "DEST",
-    "GSN",
-    "VICE",
-    "HALL",
-    "HBO",
-    "HBO2",
-    "HBOF",
-    "HBOSIG",
-    "HGTV",
-    "HISTORY",
-    "HLN",
-    "DFC",
-    "ID",
-    "IFC",
-    "ION",
-    "LIFE",
-    "LIFEMOV",
-    "MAX",
-    "AHC",
-    "MOMAX",
-    "MSNBC",
-    "MTV",
-    "MTV2",
-    "NBCSN",
-    "NGC",
-    "NICJR",
-    "NIK",
-    "OUTD",
-    "OWN",
-    "OXYGEN",
-    "SCIENCE",
-    "SHO2",
-    "SHOCSE",
-    "SHOW",
-    "SHOWX",
-    "PAR",
-    "STARZ",
-    "ESQTV",
-    "SUNDANC",
-    "SYFY",
-    "TBN",
-    "TBS",
-    "TCM",
-    "TLC",
-    "TMC",
-    "TMCX",
-    "TNT",
-    "TOON",
-    "TRAV",
-    "TRUTV",
-    "POPSD",
-    "TVLAND",
-    "TVONE",
-    "WEATH",
-    "USA",
-    "VH1",
-    "MTVCLAS",
-    "WE",
-    "WGNASD",
-]
-
-def do_unit_test():
-  """
-  Jut go through a bunch of channels. Should run without exception
-  """
-
-  global DEFAULT_ZIP
-
-  for c in test_channels:
-    if not get_channel_info(c, DEFAULT_ZIP):
-      raise Exception("Failure to get channel info for channel: " + c)
 # get a value from our json dictionary with some safety
 def get_value(obj, key, default):
   try:
@@ -159,7 +38,6 @@ def get_value(obj, key, default):
     return str(v)
   except:
     return default
-
 
 def dump_program(e):
   # DEBUG
