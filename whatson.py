@@ -142,7 +142,6 @@ test_channels = [
     "WGNASD",
 ]
 
-
 def do_unit_test():
   """
   Jut go through a bunch of channels. Should run without exception
@@ -194,9 +193,10 @@ def get_channel_info(channel, zip_code, provider):
   json_url = urlopen(url)
   data = json.loads(json_url.read())
 
-  # DEBUG: dump all channel names
-  #for c in data['channels']:
-  #  print c['callSign'] + ','
+  if channel == "LIST":
+    for c in data['channels']:
+      print c['callSign'] + ','
+    return True
   
   for c in data['channels']:
     if c['callSign'] == channel:
@@ -226,7 +226,7 @@ def main():
 
   parser = argparse.ArgumentParser(
     description='Fetch current program info')
-  parser.add_argument('channel', help='Station name (e.g. TBS) case insensitive.', type=str)
+  parser.add_argument('channel', help='Station name (e.g. TBS) case insensitive, or LIST to list available channels', type=str)
   parser.add_argument('-z','--zip', help='Zip code of query', type=int, default=DEFAULT_ZIP)
   parser.add_argument('-p', '--provider', help='provider id', type=str, default=DEFAULT_PROVIDER)
   args = parser.parse_args()
@@ -235,7 +235,7 @@ def main():
   channel = args.channel.upper()
   provider = args.provider.upper()
   zip = args.zip
-  
+ 
   if not get_channel_info(channel, zip, provider):
     print("ERROR:  no channel data found for channel : " + channel)
     sys.exit(-1)
